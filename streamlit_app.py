@@ -18,7 +18,12 @@ with left:
 with right:
     if st.button("초기화"):
         st.session_state.history = []
-        st.experimental_rerun()
+        # Streamlit은 버튼 상호작용 시 자동으로 리렌더링되므로
+        # 명시적인 rerun 호출은 불필요하며 일부 버전에서 존재하지 않을 수 있습니다.
+        # 이전 동작을 유지하려면 아래 안전 호출을 사용할 수 있습니다:
+        # rerun = getattr(st, "experimental_rerun", None)
+        # if callable(rerun):
+        #     rerun()
 
 def _emoji(result: str) -> str:
     return "🙂" if result == "앞면" else "🌀"
